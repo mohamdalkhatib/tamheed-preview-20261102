@@ -1,0 +1,122 @@
+/* All city positions are diagrammatic display positions, not a geographic map. */
+.dar-map[data-config]{position:relative;height:100svh;min-height:620px;width:100%;overflow:hidden;isolation:isolate;background:#80949d;color:#fff;direction:rtl;font-family:inherit}
+.dar-map[data-config] button,.dar-map[data-config] a{font-family:inherit;-webkit-tap-highlight-color:transparent}
+.dar-map[data-config] button{cursor:pointer}
+.dar-map[data-config] button:focus-visible,.dar-map[data-config] a:focus-visible,.dar-map-canvas:focus-visible{outline:2px solid #fff;outline-offset:5px}
+.dar-map[data-config] [hidden]{display:none!important}
+.dar-map-stage,.dar-map-canvas,.dar-map-hotspots,.dar-map-overview{position:absolute;inset:0;width:100%;height:100%}
+.dar-map-stage{z-index:0}
+.dar-map-canvas{display:block;touch-action:none;outline:none;cursor:grab}
+.dar-map-canvas:active{cursor:grabbing}
+.dar-map-hotspots{z-index:2;pointer-events:none;direction:ltr}
+.dar-map-hotspot{position:absolute;top:0;left:0;padding:9px 16px;max-width:220px;background:rgba(224,211,182,.91);border:1px solid rgba(255,255,255,.42);box-shadow:0 4px 18px #28342424;backdrop-filter:blur(8px);color:#263124;border-radius:15px;white-space:nowrap;font-size:14px;line-height:1.35;pointer-events:auto;direction:rtl;transition:background .25s,color .25s,box-shadow .25s}
+.dar-map-hotspot::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:16px;background:linear-gradient(#e0d3b6,#e0d3b600)}
+.dar-map-hotspot:hover,.dar-map-hotspot.is-active{background:#233017;color:#fff;box-shadow:0 6px 24px #23301744;z-index:3}
+.dar-map-hotspot-primary,.dar-map-hotspot-secondary{display:block;white-space:normal;text-align:center}
+.dar-map-hotspot.has-address .dar-map-hotspot-primary{font-size:15px;line-height:1.4}
+.dar-map-hotspot-secondary{margin-top:3px;font-size:11px;line-height:1.4;opacity:.8}
+.dar-map-overview{z-index:3;opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.08);transition:opacity .8s,transform 1.15s cubic-bezier(.2,.7,.2,1),visibility 0s .8s;background:#102d46}
+.dar-map[data-config] .dar-map-overview-image{width:100%;height:100%;object-fit:cover;display:block;max-width:none}
+.dar-map[data-config].is-overview .dar-map-overview{visibility:visible;opacity:1;transform:scale(1);pointer-events:auto;transition:opacity .6s,transform 1.15s cubic-bezier(.2,.7,.2,1)}
+.dar-map[data-config].is-overview .dar-map-hotspots{visibility:hidden}
+.dar-map-overview-button{position:absolute;top:52%;left:48%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:16px;min-height:52px;padding:11px 20px;border:1px solid #f7e7c28c;border-radius:20px;color:#2c3127;background:#dfd0b1e0;backdrop-filter:blur(12px);box-shadow:0 0 28px #ffe4a940;font-size:18px;line-height:1.5;transition:box-shadow .25s,background .25s}
+.dar-map-overview-button:hover{background:#eadbbb;box-shadow:0 0 45px #ffe4a97a}
+.dar-map-overview-button strong{display:grid;place-items:center;min-width:31px;height:31px;padding:0 8px;border-radius:50%;background:#fff8dd94;font-weight:400;font-family:Arial,sans-serif;font-size:14px}
+.dar-map-heading{position:absolute;z-index:5;inset-inline-end:7%;top:115px;max-width:320px;text-align:right;color:#fff;text-shadow:0 2px 22px #18304455;pointer-events:none;transition:color .6s}
+.dar-map-heading h2{font-weight:400;font-size:30px;line-height:1.3;margin:20px 0 0;color:inherit}
+.dar-map-heading p{font-size:14px;line-height:1.7;margin:12px 0 0;color:inherit}
+.dar-map[data-config] .dar-map-logo{width:93px;height:auto;max-height:145px;object-fit:contain;display:block;margin-inline-start:auto}
+.dar-map[data-config]:not(.is-overview) .dar-map-heading{color:#233017;text-shadow:none}
+.dar-map[data-config]:not(.is-overview) .dar-map-logo{filter:brightness(.22)}
+.dar-map-tools{position:absolute;z-index:6;inset-inline-start:30px;top:122px;display:grid;gap:8px}
+.dar-map-tools button{width:40px;height:40px;padding:11px;display:grid;place-items:center;color:#fff;background:#122f439c;border:1px solid #ffffff70;backdrop-filter:blur(8px);border-radius:1px;transition:background .25s}
+.dar-map-tools button:hover{background:#233017d9}
+.dar-map-tools svg{display:block;width:18px;height:18px}
+.dar-map-list-toggle{position:absolute;z-index:6;inset-inline-end:7%;bottom:38px;padding:10px 18px;display:flex;align-items:center;gap:12px;border:1px solid #ffffff7a;background:#122f43b8;backdrop-filter:blur(10px);color:#fff;border-radius:2px;font-size:15px;line-height:1.5;transition:background .25s}
+.dar-map-list-toggle:hover,.dar-map-list-toggle[aria-expanded=true]{background:#233017}
+.dar-map-list-toggle svg{width:19px;height:19px}
+.dar-map-project-list{position:absolute;inset-inline-end:7%;bottom:96px;width:320px;max-height:min(65%,580px);overflow:auto;z-index:7;padding:10px;background:#f9f6eff2;box-shadow:0 15px 45px #0c223744;backdrop-filter:blur(16px);border:1px solid #fff9;border-radius:4px;scrollbar-width:thin;overscroll-behavior:contain}
+.dar-map-project-choice{width:100%;display:flex;align-items:center;gap:13px;border:0;background:transparent;text-align:right;color:#233017;padding:8px;border-bottom:1px solid #ddd8cb;font-size:14px;line-height:1.4;transition:background .2s}
+.dar-map-project-choice:last-child{border-bottom:0}
+.dar-map-project-choice:hover,.dar-map-project-choice:focus-visible{background:#e8e4d9}
+.dar-map-project-choice img{width:59px;height:67px;object-fit:cover;flex-shrink:0}
+.dar-map-choice-copy{min-width:0}
+.dar-map-choice-title,.dar-map-choice-address{display:block}
+.dar-map-choice-address{margin-top:4px;font-size:12px;line-height:1.5;opacity:.7}
+.dar-map-choice-arrow{margin-inline-start:auto;font-family:Arial,sans-serif;font-size:23px}
+.dar-map-card{position:absolute;z-index:6;inset-inline-start:30px;bottom:38px;width:295px;background:#fff;color:#233017;box-shadow:0 14px 42px #152b3f40;border-radius:3px;overflow:hidden;animation:dar-map-card-in .35s both}
+.dar-map[data-config] .dar-map-card-image{display:block;width:100%;height:185px;object-fit:cover;object-position:center}
+.dar-map-card-close{position:absolute;top:10px;inset-inline-start:10px;border:1px solid #fff7;background:#122f439c;backdrop-filter:blur(4px);color:#fff;width:29px;height:29px;border-radius:50%;padding:0;display:grid;place-items:center;font-size:23px;line-height:1;font-family:Arial,sans-serif!important}
+.dar-map-card-body{padding:18px;display:flex;align-items:center;gap:12px}
+.dar-map-card-copy{min-width:0}
+.dar-map-card-title{margin:0;font-weight:400;color:inherit;font-size:20px;line-height:1.4}
+.dar-map-card-address{margin:6px 0 0;font-size:13px;line-height:1.6;color:inherit;opacity:.75}
+.dar-map-card-link{margin-inline-start:auto;flex-shrink:0;display:grid;place-items:center;border:1px solid #2330173d;background:transparent;color:#233017;width:40px;height:40px;border-radius:50%;transition:background .25s,color .25s}
+.dar-map-card-link:hover{background:#233017;color:#fff}
+.dar-map-card-link svg{width:20px;height:20px}
+.dar-map-fallback .dar-map-stage{background:radial-gradient(ellipse at 60% 35%,#d6c6ad,#849c9d 70%)}
+.dar-map-fallback .dar-map-tools{display:none}
+.dar-map-expand-trigger,.dar-map-modal-close{display:none}
+.dar-map-modal-host{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;margin:0;padding:0;z-index:2147483000;overflow:hidden;overflow:clip;overscroll-behavior:none;isolation:isolate;background:#80949d}
+.dar-map[data-config].is-expanded{height:100vh;height:100dvh;min-height:0;width:100%;margin:0;overflow:clip}
+.dar-map[data-config].is-expanded .dar-map-modal-close{position:absolute;z-index:20;display:grid;place-items:center;inset-inline-start:16px;top:calc(16px + env(safe-area-inset-top,0px));width:44px;height:44px;padding:12px;border:1px solid #fff9;border-radius:50%;background:#143045dc;backdrop-filter:blur(8px);color:#fff}
+.dar-map-modal-close svg{display:block;width:20px;height:20px}
+@keyframes dar-map-card-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:991px){
+ .dar-map-heading{top:116px;inset-inline-end:25px;max-width:240px}
+ .dar-map[data-config] .dar-map-logo{width:70px;max-height:110px}
+ .dar-map-heading h2{font-size:24px;margin-top:15px}
+ .dar-map-tools{inset-inline-start:20px;top:124px}
+ .dar-map-list-toggle,.dar-map-project-list{inset-inline-end:25px}
+ .dar-map-card{inset-inline-start:20px;width:270px}
+ .dar-map-hotspot{font-size:12px;padding:8px 12px;max-width:190px}
+ .dar-map-hotspot.has-address .dar-map-hotspot-primary{font-size:13px}
+ .dar-map-hotspot-secondary{font-size:10px}
+}
+@media(max-width:767px){
+ .dar-map[data-config]{height:100svh;min-height:540px}
+ .dar-map-heading{top:112px;inset-inline-end:20px;max-width:205px}
+ .dar-map[data-config] .dar-map-logo{width:57px;max-height:90px}
+ .dar-map-heading h2{font-size:21px;margin-top:14px}
+ .dar-map-heading p{font-size:12px;line-height:1.5;margin-top:8px}
+ .dar-map[data-config]:not(.has-mobile-description) .dar-map-heading p{display:none}
+ .dar-map-tools{inset-inline-start:16px;top:116px;gap:7px}
+ .dar-map-tools button{width:34px;height:34px;padding:8px}
+ .dar-map[data-config] .dar-map-overview-image{position:absolute;left:0;top:0;transform:none;width:100%;height:100%;object-fit:cover;object-position:center;max-width:none}
+ .dar-map-overview-button{left:49%;top:52%;gap:10px;min-height:47px;padding:9px 15px;border-radius:17px;white-space:nowrap;font-size:15px}
+ .dar-map-overview-button strong{height:27px;min-width:27px;font-size:12px;padding:0 7px}
+ .dar-map-hotspot{font-size:10px;padding:6px 9px;max-width:156px;border-radius:11px;white-space:normal;overflow-wrap:anywhere;text-align:center}
+ .dar-map-hotspot.has-address .dar-map-hotspot-primary{font-size:11px}
+ .dar-map-hotspot-secondary{font-size:9px}
+ .dar-map-list-toggle{inset-inline-end:16px;bottom:22px;font-size:13px;gap:9px;padding:9px 12px}
+ .dar-map-project-list{inset-inline-end:16px;bottom:75px;width:min(320px,calc(100% - 32px));max-height:58%}
+ .dar-map-card{inset-inline-start:16px;bottom:80px;width:min(260px,calc(100% - 32px))}
+ .dar-map[data-config] .dar-map-card-image{height:148px}
+ .dar-map-card-body{padding:13px}
+ .dar-map-card-title{font-size:17px}
+ .dar-map-card-address{font-size:12px;margin-top:4px}
+ .dar-map-card-link{width:33px;height:33px}
+ .dar-map-card-link svg{width:17px;height:17px}
+ .dar-map[data-config].is-compact{height:var(--dar-map-compact-height,clamp(260px,80vw,340px));min-height:0;cursor:pointer}
+ .dar-map[data-config].is-compact .dar-map-stage{pointer-events:none}
+ .dar-map[data-config].is-compact .dar-map-canvas{touch-action:pan-y;pointer-events:none}
+ .dar-map[data-config].is-compact .dar-map-heading{top:16px;inset-inline-end:20px;max-width:calc(100% - 40px);display:flex;align-items:center;gap:10px}
+ .dar-map[data-config].is-compact:not(.is-expanded) .dar-map-logo{width:32px;max-height:54px;margin:0;flex-shrink:0}
+ .dar-map[data-config].is-compact:not(.is-expanded) .dar-map-heading h2{font-size:18px;line-height:22px;margin:0}
+ .dar-map[data-config].is-compact .dar-map-heading p,
+ .dar-map[data-config].is-compact .dar-map-tools,
+ .dar-map[data-config].is-compact .dar-map-list-toggle,
+ .dar-map[data-config].is-compact .dar-map-project-list,
+ .dar-map[data-config].is-compact .dar-map-card,
+ .dar-map[data-config].is-compact .dar-map-hotspots,
+ .dar-map[data-config].is-compact .dar-map-overview-button{display:none}
+ .dar-map[data-config].is-compact .dar-map-expand-trigger{position:absolute;inset:0;z-index:8;width:100%;height:100%;border:0;padding:0;background:transparent;display:block;touch-action:pan-y}
+ .dar-map-expand-label{position:absolute;left:50%;top:57%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:10px;padding:10px 16px;border:1px solid #f7e7c28c;border-radius:17px;color:#2c3127;background:#dfd0b1e0;backdrop-filter:blur(10px);box-shadow:0 0 28px #ffe4a940;font-size:15px;line-height:1.5;white-space:nowrap}
+ .dar-map-expand-label strong{display:grid;place-items:center;min-width:27px;height:27px;padding:0 7px;border-radius:50%;background:#fff8dd94;font-weight:400;font-family:Arial,sans-serif;font-size:12px}
+ .dar-map-expand-trigger:hover .dar-map-expand-label{background:#eadbbb;box-shadow:0 0 45px #ffe4a97a}
+ .dar-map[data-config].is-expanded .dar-map-heading{top:calc(20px + env(safe-area-inset-top,0px))}
+ .dar-map[data-config].is-expanded .dar-map-tools{top:calc(78px + env(safe-area-inset-top,0px))}
+ .dar-map[data-config].is-expanded .dar-map-list-toggle{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+ .dar-map[data-config].is-expanded .dar-map-card{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+}
+@media(prefers-reduced-motion:reduce){.dar-map[data-config] *{animation:none!important;transition:none!important}}
